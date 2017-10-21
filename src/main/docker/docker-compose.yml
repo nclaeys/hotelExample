@@ -1,0 +1,22 @@
+version: '2'
+services:
+  web:
+    image: vtk/hotel-example
+    ports:
+    - "8080:8080"
+    depends_on:
+    - mysql
+    environment:
+    - spring_datasource_url=jdbc:mysql://mysql:3306/hotel
+    - spring_datasource_username=admin
+    - spring_datasource_password=admin
+    - spring_profiles_active=mysql
+  mysql:
+    image: mysql:5.6
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=adminadmin
+    - MYSQL_DATABASE=hotel
+    - MYSQL_USER=admin
+    - MYSQL_PASSWORD=admin

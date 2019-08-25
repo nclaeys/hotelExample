@@ -1,36 +1,36 @@
-package be.vtk.example.hotel;
+package be.axxes.example.hotel;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.metrics.CounterService;
-import org.springframework.context.ApplicationEvent;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
-import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@RepositoryEventHandler(Hotel.class)
+@RepositoryEventHandler
 @Component
 public class HotelEventHandler {
     private static final Logger LOGGER = getLogger(HotelEventHandler.class);
 
-    private final CounterService counterService;
+    private final MeterRegistry registry;
+
     @Autowired
-    public HotelEventHandler(CounterService counterService) {
-        this.counterService = counterService;
+    public HotelEventHandler(MeterRegistry registry) {
+        this.registry = registry;
     }
 
-    @HandleBeforeSave
+    @HandleBeforeCreate
     public void handleHotel(Hotel h) {
         LOGGER.info("post triggerd");
-        counterService.increment("services.hotel.create");
+        registry.counter("services.hotel.create").increment();
     }
 
     @HandleBeforeDelete
     public void handleDeleteHotel(Hotel h) {
         LOGGER.info("delete triggered");
-        counterService.increment("services.hotel.delete");
+        registry.counter("services.hotel.delete").increment();
     }
 }

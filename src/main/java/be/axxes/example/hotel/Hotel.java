@@ -1,4 +1,4 @@
-package be.vtk.example.hotel;
+package be.axxes.example.hotel;
 
 
 import javax.persistence.Column;
@@ -33,7 +33,6 @@ public class Hotel {
         return this.id;
     }
 
-    // for tests ONLY
     public void setId(long id) {
         this.id = id;
     }

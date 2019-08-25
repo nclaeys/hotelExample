@@ -1,4 +1,4 @@
-package be.vtk.example.configuration;
+package be.axxes.example.configuration;
 
 import org.springframework.context.annotation.Configuration;
 

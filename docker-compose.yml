@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: vtk/hotel-example
+    image: axxes/hotel-example:0.0.1-SNAPSHOT
     ports:
     - "8080:8080"
     depends_on:
